@@ -1,0 +1,17 @@
+image: python:3.7
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+pages:
+  script:
+    - apt-get -qq update
+    - pip install -r requirements.txt
+    - pwd
+    - ls
+    - ls m.css/
+    - pelican -s publishconf.py
+  artifacts:
+    paths:
+      - public/
+
