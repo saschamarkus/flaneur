@@ -19,7 +19,10 @@ RELATIVE_URLS = False
 FEED_ALL_ATOM = 'feeds/all.atom.xml'
 CATEGORY_FEED_ATOM = 'feeds/{slug}.atom.xml'
 
+THEME_STATIC_DIR = path.join(SITEURL, 'static')
+
 M_SITE_LOGO = path.join(SITEURL, "/images/flaneur.png")
+
 M_LINKS_FOOTER1 = [('Der Flaneur', '/'),
                 ('Über den Flaneur', path.join(SITEURL, 'pages/der-flaneur.html')),
                 ('Impressum', path.join(SITEURL, 'pages/impressum.html')),
