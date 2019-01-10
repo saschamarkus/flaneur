@@ -28,7 +28,7 @@ THEME = "m.css/pelican-theme"
 THEME_STATIC_DIR = 'static'
 DIRECT_TEMPLATES = ['index']
 M_CSS_FILES = ['https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700,700i%7CSource+Code+Pro:400,400i,600',
-                               path.join(SITEURL, '/static/m-light.css')]
+                               '/static/m-light.css']
 M_THEME_COLOR = '#cb4b16'
 M_FAVICON = ('favicon.ico', 'image/x-ico')
 M_SITE_LOGO = path.join(SITEURL, "/images/flaneur.png")

@@ -108,3 +108,5 @@ Ebenfalls um 20:00 beginnt im `Gasthaus Zahm <https://www.facebook.com/zahm1911/
 .. raw:: html
 
   <script type="application/ld+json">{"location": {"address": {"@type": "PostalAddress", "postalCode": "66111", "streetAddress": "T\u00fcrkenstra\u00dfe 3", "addressLocality": "Saarbr\u00fccken, Germany"}, "@type": "Place", "url": "https://www.facebook.com/118061804916847", "name": "Tante Anna", "geo": {"@type": "GeoCoordinates", "latitude": 49.23252, "longitude": 6.99811}}, "@type": "Event", "url": "https://www.facebook.com/332711600894755", "@context": "http://schema.org/", "enddate": "2018-12-23T23:00:00+0100", "description": "Fonk\u00e4!", "name": "Weihnachtsoratorium mit The Torpedo Molecules", "startdate": "2018-12-23T20:00:00+0100"}</script>
+
+
