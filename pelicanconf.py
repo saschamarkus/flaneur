@@ -40,7 +40,8 @@ M_HIDE_ARTICLE_SUMMARY = True
 M_LINKS_FOOTER1 = [('Der Flaneur', '/'),
                 ('Über den Flaneur', path.join(SITEURL, 'pages/der-flaneur.html')),
                 ('Impressum', path.join(SITEURL, 'pages/impressum.html')),
-                ('Datenschutz', path.join(SITEURL, 'pages/datenschutz.html'))]
+                ('Datenschutz', path.join(SITEURL, 'pages/datenschutz.html')),
+                ('Atom-Feed', path.join(SITEURL, 'feeds/atom.xml'))]
 
 STATIC_PATHS = [
                 'images',
