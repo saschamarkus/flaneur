@@ -19,7 +19,8 @@ job:
 
     # set display port to avoid crash
     - ENV DISPLAY=:99
-
+  script:
+    - echo Crawler
 
 
 pages:
