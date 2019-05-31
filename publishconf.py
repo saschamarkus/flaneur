@@ -11,22 +11,19 @@ sys.path.append(os.curdir)
 from pelicanconf import *
 
 # If your site is available via HTTPS, make sure SITEURL begins with https://
-#SITEURL = 'https://www.der-flaneur.rocks'
-#SITEURL = ''
-SITEURL = 'https://saschamarkus.gitlab.io/flaneur'
-RELATIVE_URLS = True
+SITEURL = 'https://www.der-flaneur.rocks'
+# RELATIVE_URLS = True
 
-FEED_ALL_ATOM = 'feeds/all.atom.xml'
-CATEGORY_FEED_ATOM = 'feeds/{slug}.atom.xml'
+FEED_DOMAIN = SITEURL
 
 
-M_LINKS_FOOTER1 = [('Der Flaneur', '/'),
-                ('Über den Flaneur', path.join(SITEURL, 'pages/der-flaneur.html')),
-                ('Impressum', path.join(SITEURL, 'pages/impressum.html')),
-                ('Datenschutz', path.join(SITEURL, 'pages/datenschutz.html'))]
+# M_LINKS_FOOTER1 = [('Der Flaneur', '/'),
+#                 ('Über den Flaneur', path.join(SITEURL, 'pages/der-flaneur.html')),
+#                 ('Impressum', path.join(SITEURL, 'pages/impressum.html')),
+#                 ('Datenschutz', path.join(SITEURL, 'pages/datenschutz.html'))]
 
 
-DELETE_OUTPUT_DIRECTORY = True
+DELETE_OUTPUT_DIRECTORY = False
 
 # Following items are often useful when publishing
 

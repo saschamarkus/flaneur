@@ -1,4 +1,11 @@
+# create site from md files
 pelican
-markdown
-typogrify
+Markdown
 Pillow
+# create md files by scraping facebook
+beautifulsoup4
+html5lib
+lxml
+piexif
+requests[urllib3]
+selenium
