@@ -125,7 +125,7 @@ for link in bs_html.find_all('a'):
     # build rst link
     link.replace_with('[{}]({}){} '.format(link.text, link['href'], event_details))
 
-content_path = '/home/sascha/dev/flaneur/content/'
+content_path = 'content/'
 
 # prepare post header
 
