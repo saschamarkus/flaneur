@@ -190,7 +190,7 @@ for para in bs_html.find('body').contents:
         if con.name == 'br':
             lines.append('\n\n')
         else:
-            lines.append(leading_blanks.sub('', str(con).replace('{breakline}', '<br/>')))
+            lines.append(leading_blanks.sub('', str(con).replace('{breakline}', '<br/>').replace('*', '\*')))
     lines.append('\n\n')
 for ld in all_events:
     if ld:
