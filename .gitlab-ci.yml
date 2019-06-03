@@ -3,13 +3,6 @@ image: python:3.7
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
 
-job:
-  script:
-    - echo Crawling
-    - tail -1 posts.txt
-    - apt-get -qq update
-    - pip install -r requirements.txt
-
 pages:
   before_script:
     # Using chrom headless integration from https://github.com/joyzoursky/docker-python-chromedriver
