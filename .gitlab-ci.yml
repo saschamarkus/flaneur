@@ -31,8 +31,7 @@ pages:
     - apt-get -qq update
     - pip install -r requirements.txt
     - pwd
-    - ls
-    - ls m.css/
+    - ls -l content/
     - pelican -s publishconf.py
   artifacts:
     paths:
