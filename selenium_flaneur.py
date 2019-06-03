@@ -144,10 +144,11 @@ def get_dates(driver):
 
 def build_prefix(fb_date, rst_date):
     prefix = """Title: Beitrag vom {}
-    Date: {}
-    Category: Ausgehen
+Date: {}
+Category: Ausgehen
 
-    """.format(fb_date, rst_date)
+
+""".format(fb_date, rst_date)
     return(prefix)
 
 
@@ -160,12 +161,13 @@ bs_html = get_post(post_id)
 rst_date, file_date, fb_date = get_dates(driver)
 
 prefix = build_prefix(fb_date, rst_date)
-build_links(bs_html)
-content = build_content(bs_html, file_date)
 
 img_path = download_image(driver, file_date)
 resize_image(img_path)
 update_exif(img_path, file_date)
+
+build_links(bs_html)
+content = build_content(bs_html, file_date)
 
 out_fname = content_path + 'post_' + file_date + '.md'
 with open(out_fname, 'w') as ofile:
