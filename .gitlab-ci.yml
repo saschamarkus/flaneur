@@ -4,6 +4,13 @@ variables:
   GIT_SUBMODULE_STRATEGY: recursive
 
 job:
+  script:
+    - echo Crawling
+    - tail -1 posts.txt
+    - apt-get -qq update
+    - pip install -r requirements.txt
+
+pages:
   before_script:
     # Using chrom headless integration from https://github.com/joyzoursky/docker-python-chromedriver
     # install google chrome
@@ -20,17 +27,9 @@ job:
     # set display port to avoid crash
     - export DISPLAY=:99
   script:
-    - echo Crawling
-    - tail -1 posts.txt
     - apt-get -qq update
     - pip install -r requirements.txt
     - python selenium_flaneur.py
-
-pages:
-  script:
-    - apt-get -qq update
-    - pip install -r requirements.txt
-    - pwd
     - ls -l content/
     - pelican -s publishconf.py
   artifacts:
