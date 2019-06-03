@@ -167,6 +167,8 @@ img_path = download_image(driver, file_date)
 resize_image(img_path)
 update_exif(img_path, file_date)
 
-with open(content_path + 'post_' + file_date + '.md', 'w') as ofile:
+out_fname = content_path + 'post_' + file_date + '.md'
+with open(out_fname, 'w') as ofile:
+    print('writing', out_fname)
     ofile.write(prefix)
     ofile.write(''.join(content))
