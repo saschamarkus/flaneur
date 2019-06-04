@@ -19,6 +19,7 @@ pages:
 
     # set display port to avoid crash
     - export DISPLAY=:99
+    - date
   script:
     - apt-get -qq update
     - pip install -r requirements.txt
