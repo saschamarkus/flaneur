@@ -12,6 +12,7 @@ import piexif
 import pytz
 
 from PIL import Image, ExifTags
+from babel.dates import format_datetime, get_timezone
 from bs4 import BeautifulSoup as soup
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -128,17 +129,14 @@ def build_content(bs_html, file_date):
 
 def get_dates(driver):
     date = driver.find_element_by_class_name('timestampContent')
-    fb_date = date.find_element_by_xpath('..').get_attribute('title')
     date_utime = date.find_element_by_xpath('..').get_attribute('data-utime')
 
-    timestamp = datetime.datetime.utcfromtimestamp(int(date_utime))
-    tz = pytz.timezone('Etc/GMT-9')
-    tz_target = pytz.timezone('Europe/Berlin')
-    aware_utc_dt = timestamp.replace(tzinfo=tz)
-    local_date = aware_utc_dt.astimezone(tz_target)
+    server_tz = get_timezone('US/Pacific')
+    timestamp = datetime.datetime.fromtimestamp(int(date_utime), server_tz)
 
-    rst_date = local_date.strftime('%Y-%m-%d %H:%M')
-    file_date = local_date.strftime('%Y-%m-%d-%H-%M')
+    fb_date = format_datetime(server_dt, 'EEEE, dd.MM.yyyy H:mm', tzinfo=server_tz, locale='de_DE')
+    rst_date = format_datetime(server_dt, 'yyyy-M-dd H:mm', tzinfo=server_tz, locale='de_DE')
+    file_date = format_datetime(server_dt, 'yyyy-M-dd-H-mm', tzinfo=server_tz, locale='de_DE')
     return rst_date, file_date, fb_date
 
 
