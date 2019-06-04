@@ -34,7 +34,7 @@ DIRECT_TEMPLATES = ['index']
 M_CSS_FILES = ['/static/m-light.compiled.css']
 M_THEME_COLOR = '#4267b2'
 M_FAVICON = ('favicon.ico', 'image/x-ico')
-M_SITE_LOGO = path.join(SITEURL, "/images/flaneur.png")
+M_SITE_LOGO = "/images/flaneur.png"
 
 PLUGIN_PATHS = ['m.css/pelican-plugins']
 PLUGINS = ['m.htmlsanity', 'm.images', 'm.components', 'm.link']
@@ -70,4 +70,4 @@ SOCIAL = (('Facebook', 'https://www.facebook.com/FlaneurSaarbruecken/'),
 DEFAULT_PAGINATION = 3
 
 # Uncomment following line if you want document-relative URLs when developing
-#RELATIVE_URLS = True
+RELATIVE_URLS = True
