@@ -31,10 +31,10 @@ THEME_STATIC_DIR = 'static'
 DIRECT_TEMPLATES = ['index']
 #M_CSS_FILES = ['https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700,700i%7CSource+Code+Pro:400,400i,600',
 #                               '/static/m-light.css']
-M_CSS_FILES = ['/static/m-light.compiled.css']
+M_CSS_FILES = ['static/m-light.compiled.css']
 M_THEME_COLOR = '#4267b2'
 M_FAVICON = ('favicon.ico', 'image/x-ico')
-M_SITE_LOGO = "/images/flaneur.png"
+M_SITE_LOGO = "images/flaneur.png"
 
 PLUGIN_PATHS = ['m.css/pelican-plugins']
 PLUGINS = ['m.htmlsanity', 'm.images', 'm.components', 'm.link']
