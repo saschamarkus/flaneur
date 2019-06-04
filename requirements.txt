@@ -3,6 +3,7 @@ pelican
 Markdown
 Pillow
 # create md files by scraping facebook
+babel
 beautifulsoup4
 html5lib
 lxml
