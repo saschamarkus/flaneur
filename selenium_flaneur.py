@@ -134,9 +134,9 @@ def get_dates(driver):
     server_tz = get_timezone('US/Pacific')
     timestamp = datetime.datetime.fromtimestamp(int(date_utime), server_tz)
 
-    fb_date = format_datetime(server_dt, 'EEEE, dd.MM.yyyy H:mm', tzinfo=server_tz, locale='de_DE')
-    rst_date = format_datetime(server_dt, 'yyyy-M-dd H:mm', tzinfo=server_tz, locale='de_DE')
-    file_date = format_datetime(server_dt, 'yyyy-M-dd-H-mm', tzinfo=server_tz, locale='de_DE')
+    fb_date = format_datetime(timestamp, 'EEEE, dd.MM.yyyy H:mm', tzinfo=server_tz, locale='de_DE')
+    rst_date = format_datetime(timestamp, 'yyyy-M-dd H:mm', tzinfo=server_tz, locale='de_DE')
+    file_date = format_datetime(timestamp, 'yyyy-M-dd-H-mm', tzinfo=server_tz, locale='de_DE')
     return rst_date, file_date, fb_date
 
 
