@@ -131,7 +131,7 @@ def get_dates(driver):
     date = driver.find_element_by_class_name('timestampContent')
     date_utime = date.find_element_by_xpath('..').get_attribute('data-utime')
 
-    server_tz = get_timezone('UTC')
+    server_tz = get_timezone('US/Eastern')
     timestamp = datetime.datetime.fromtimestamp(int(date_utime), server_tz)
 
     fb_date = format_datetime(timestamp, 'EEEE, dd.MM.yyyy H:mm', tzinfo=server_tz, locale='de_DE')
