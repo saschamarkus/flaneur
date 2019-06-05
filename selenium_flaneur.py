@@ -132,7 +132,7 @@ def get_dates(driver):
     date_utime = date.find_element_by_xpath('..').get_attribute('data-utime')
 
     server_tz = get_timezone('GMT')
-    target_tz = get_timezone('Europe/Berlin') = get_timezone('Europe/Berlin')
+    target_tz = get_timezone('Europe/Berlin')
     timestamp = datetime.datetime.fromtimestamp(int(date_utime), server_tz)
 
     fb_date = format_datetime(timestamp, 'EEEE, dd.MM.yyyy H:mm', tzinfo=target_tz, locale='de_DE')
