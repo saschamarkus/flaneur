@@ -29,7 +29,7 @@ pages:
     - cd content
     - git config user.name saschamarkus
     - git config user.email sascha.markus@gmail.com
-    - git add . && git commit -m "new post" && git push
+    - git add . && git commit -m "new post" && git push origin HEAD:master
   artifacts:
     paths:
       - public/
