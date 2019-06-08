@@ -19,14 +19,16 @@ pages:
 
     # set display port to avoid crash
     - export DISPLAY=:99
-    - date
+    - ./before_script.sh
   script:
     - apt-get -qq update
     - pip install -r requirements.txt
     - python selenium_flaneur.py
     - pelican -s publishconf.py
     # add the generated content to flanuer_content repo
-    - git add content && git commit -m "new post [skip ci]" && git push
+    - git config user.name saschamarkus
+    - git config user.email sascha.markus@gmail.com
+    - git add content/ && git commit -m "new post [skip ci]" && git push
   artifacts:
     paths:
       - public/
