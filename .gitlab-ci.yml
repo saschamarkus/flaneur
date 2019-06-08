@@ -26,10 +26,7 @@ pages:
     - python selenium_flaneur.py
     - pelican -s publishconf.py
     # add the generated content to flanuer_content repo
-    - cd content
-    - git config user.name saschamarkus
-    - git config user.email sascha.markus@gmail.com
-    - git add . && git commit -m "new post" && git push origin HEAD:master
+    - git add content && git commit -m "new post [skip ci]" && git push
   artifacts:
     paths:
       - public/
