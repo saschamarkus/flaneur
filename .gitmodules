@@ -2,3 +2,6 @@
 	path = m.css
 	url = https://github.com/saschamarkus/m.css.git
         branch = der-flaneur
+[submodule "content"]
+	path = content
+	url = git@gitlab.com:saschamarkus/flaneur_content.git

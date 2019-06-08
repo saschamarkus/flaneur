@@ -45,8 +45,8 @@ M_LINKS_FOOTER1 = [('Der Flaneur', '/'),
                 ('Der Flaneur bei Patreon', 'https://patreon.com/derflaneur'),
                 ('Impressum', path.join(SITEURL, 'pages/impressum.html')),
                 ('Datenschutz', path.join(SITEURL, 'pages/datenschutz.html')),
-                ('Atom-Feed', path.join(SITEURL, 'feeds/all.atom.xml')),
-                ('RSS-Feed', path.join(SITEURL, 'feeds/all.rss.xml'))]
+                ('Atom-Feed', path.join(SITEURL, 'feeds/atom.xml')),
+                ('RSS-Feed', path.join(SITEURL, 'feeds/rss.xml'))]
 
 STATIC_PATHS = [
                 'images',

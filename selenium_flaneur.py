@@ -12,7 +12,7 @@ import piexif
 import pytz
 
 from PIL import Image, ExifTags
-from babel.dates import format_datetime, get_timezone
+from babel.dates import format_datetime
 from bs4 import BeautifulSoup as soup
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -35,11 +35,12 @@ def launch_browser():
 
 
 def get_latest_post():
-    post_id = 'photos/a.195591940806855/850644405301602'
+    p = ''
     with open('posts.txt') as posts:
         for line in posts:
-            post_id = line.replace('\n', '')
-    return post_id
+            p = line.replace('\n', '')
+    post_id, post_date, post_time = p.split(' ')
+    return post_id, post_date, post_time
 
 
 def get_post(post_id):
@@ -127,42 +128,18 @@ def build_content(bs_html, file_date):
     return lines
 
 
-def get_dates(driver):
-    date = driver.find_element_by_class_name('timestampContent')
-    date_utime = date.find_element_by_xpath('..').get_attribute('data-utime')
+def get_dates(post_date, post_time):
+    # The publishing date displayed (and correct) for the user logged in
+    # is different from the date when not logged in. So we won't use it
+    # date = driver.find_element_by_class_name('timestampContent')
+    # date_utime = date.find_element_by_xpath('..').get_attribute('data-utime')
 
-    print('date_utime', date_utime)
-    print('server tz', datetime.datetime.now(datetime.timezone.utc).astimezone().tzname())
-    gmt_tz = get_timezone('GMT')
-    utc_tz = get_timezone('UTC')
-    target_tz = get_timezone('Europe/Berlin')
-    
-    timestamp = datetime.datetime.fromtimestamp(int(date_utime))
-    timestamp_utc = datetime.datetime.fromtimestamp(int(date_utime), tz=utc_tz)
-    timestamp_gmt = datetime.datetime.fromtimestamp(int(date_utime), tz=gmt_tz)
-    timestamp_target = datetime.datetime.fromtimestamp(int(date_utime), tz=target_tz)
-    print('ts default', timestamp)
-    print('ts GMT', timestamp_gmt)
-    print('ts UTC', timestamp_utc)
-    print('ts target', timestamp_target)
-    fb_date = format_datetime(timestamp, 'EEEE, dd.MM.yyyy H:mm', locale='de_DE')
-    print(fb_date)
-    fb_date = format_datetime(timestamp, 'EEEE, dd.MM.yyyy H:mm', tzinfo=target_tz, locale='de_DE')
-    print(fb_date)
-    fb_date = format_datetime(timestamp, 'EEEE, dd.MM.yyyy H:mm', tzinfo=gmt_tz, locale='de_DE')
-    print(fb_date)
-    fb_date = format_datetime(timestamp, 'EEEE, dd.MM.yyyy H:mm', tzinfo=utc_tz, locale='de_DE')
-    print(fb_date)
-    fb_date = format_datetime(timestamp_target, 'EEEE, dd.MM.yyyy H:mm', locale='de_DE')
-    print(fb_date)
-    fb_date = format_datetime(timestamp_target, 'EEEE, dd.MM.yyyy H:mm', tzinfo=target_tz, locale='de_DE')
-    print(fb_date)
-    fb_date = format_datetime(timestamp_target, 'EEEE, dd.MM.yyyy H:mm', tzinfo=gmt_tz, locale='de_DE')
-    print(fb_date)
-    fb_date = format_datetime(timestamp_target, 'EEEE, dd.MM.yyyy H:mm', tzinfo=utc_tz, locale='de_DE')
-    print(fb_date)
-    rst_date = format_datetime(timestamp, 'yyyy-M-dd H:mm', tzinfo=target_tz, locale='de_DE')
-    file_date = format_datetime(timestamp, 'yyyy-M-dd-H-mm', tzinfo=target_tz, locale='de_DE')
+    date_str = f'{post_date} {post_time}'
+    dt = datetime.datetime.fromisoformat(date_str)
+
+    fb_date = format_datetime(dt, 'EEEE, dd.MM.yyyy H:mm', locale='de_DE')
+    rst_date = format_datetime(dt, 'yyyy-MM-dd H:mm', locale='de_DE')
+    file_date = format_datetime(dt, 'yyyy-MM-dd-H-mm', locale='de_DE')
     return rst_date, file_date, fb_date
 
 
@@ -179,10 +156,10 @@ Category: Ausgehen
 content_path = 'content/'
 driver = launch_browser()
 
-post_id = get_latest_post()
+post_id, post_date, post_time = get_latest_post()
 bs_html = get_post(post_id)
 
-rst_date, file_date, fb_date = get_dates(driver)
+rst_date, file_date, fb_date = get_dates(post_date, post_time)
 
 prefix = build_prefix(fb_date, rst_date)
 

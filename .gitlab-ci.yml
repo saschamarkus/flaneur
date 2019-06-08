@@ -24,8 +24,10 @@ pages:
     - apt-get -qq update
     - pip install -r requirements.txt
     - python selenium_flaneur.py
-    - ls -l content/
     - pelican -s publishconf.py
+    # add the generated content to flanuer_content repo
+    - cd content
+    - git add . && git commit -m "new post" && git push
   artifacts:
     paths:
       - public/
