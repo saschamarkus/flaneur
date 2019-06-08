@@ -30,7 +30,7 @@ pages:
     # add the generated content to flanuer_content repo
     - git add content/ && git commit -m "new post [skip ci]"
     - echo "https://saschamarkus:${GITLAB_TOKEN}@${CI_REPOSITORY_URL#*@}" "HEAD:master"
-    - git push "https://saschamarkus:${GITLAB_TOKEN}@${CI_REPOSITORY_URL#*@}" "HEAD:master"
+    - git push "https://saschamarkus:${GITLAB_KEY}@${CI_REPOSITORY_URL#*@}" "HEAD:master"
   artifacts:
     paths:
       - public/
