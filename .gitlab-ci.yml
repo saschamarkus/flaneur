@@ -28,7 +28,8 @@ pages:
     # add the generated content to flanuer_content repo
     - git config user.name saschamarkus
     - git config user.email sascha.markus@gmail.com
-    - git add content/ && git commit -m "new post [skip ci]" && git push origin HEAD:master
+    - git add content/ && git commit -m "new post [skip ci]"
+    - git push http://saschamarkus:${GITLAB_TOKEN}@gitlab.com/saschamarkus/flaneur.git HEAD:master
   artifacts:
     paths:
       - public/
