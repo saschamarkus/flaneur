@@ -27,6 +27,8 @@ pages:
     - pelican -s publishconf.py
     # add the generated content to flanuer_content repo
     - cd content
+    - git config user.name saschamarkus
+    - git config user.email sascha.markus@gmail.com
     - git add . && git commit -m "new post" && git push
   artifacts:
     paths:
