@@ -5,7 +5,7 @@ variables:
 
 pages:
   before_script:
-    - git config user.name saschamarkus
+    - git config user.name ${GITLAB_USER_NAME}
     - git config user.email sascha.markus@gmail.com
     - ./before_script.sh
     # Using chrom headless integration from https://github.com/joyzoursky/docker-python-chromedriver
@@ -29,8 +29,8 @@ pages:
     - pelican -s publishconf.py
     # add the generated content to flanuer_content repo
     - git add content/ && git commit -m "new post [skip ci]"
-    - echo "https://${GITLAB_USER_NAME}:${CI_GIT_TOKEN}@${CI_REPOSITORY_URL#*@}" "HEAD:${CI_COMMIT_TAG}"
-    - git push "https://${GITLAB_USER_NAME}:${CI_GIT_TOKEN}@${CI_REPOSITORY_URL#*@}" "HEAD:${CI_COMMIT_TAG}"
+    - echo "https://saschamarkus:${GITLAB_TOKEN}@${CI_REPOSITORY_URL#*@}" "HEAD:master"
+    - git push "https://saschamarkus:${GITLAB_TOKEN}@${CI_REPOSITORY_URL#*@}" "HEAD:master"
   artifacts:
     paths:
       - public/
