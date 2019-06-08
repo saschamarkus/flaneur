@@ -27,7 +27,7 @@ pages:
     - python selenium_flaneur.py
     - pelican -s publishconf.py
     # add the generated content to flanuer_content repo
-    - git add content/ && git commit -m "new post [skip ci]"
+    - git add content/ && git commit -m "new post [skip ci]"   || true
     - git push "https://saschamarkus:${GITLAB_KEY}@${CI_REPOSITORY_URL#*@}" "HEAD:master"  || true
   artifacts:
     paths:
