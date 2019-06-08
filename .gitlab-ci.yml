@@ -5,6 +5,9 @@ variables:
 
 pages:
   before_script:
+    - git config user.name saschamarkus
+    - git config user.email sascha.markus@gmail.com
+    - ./before_script.sh
     # Using chrom headless integration from https://github.com/joyzoursky/docker-python-chromedriver
     # install google chrome
     - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
@@ -19,17 +22,15 @@ pages:
 
     # set display port to avoid crash
     - export DISPLAY=:99
-    - ./before_script.sh
   script:
     - apt-get -qq update
     - pip install -r requirements.txt
     - python selenium_flaneur.py
     - pelican -s publishconf.py
     # add the generated content to flanuer_content repo
-    - git config user.name saschamarkus
-    - git config user.email sascha.markus@gmail.com
     - git add content/ && git commit -m "new post [skip ci]"
-    - git push https://saschamarkus:${GITLAB_TOKEN}@gitlab.com/saschamarkus/flaneur.git HEAD:master
+    - echo "https://${GITLAB_USER_NAME}:${CI_GIT_TOKEN}@${CI_REPOSITORY_URL#*@}" "HEAD:${CI_COMMIT_TAG}"
+    - git push "https://${GITLAB_USER_NAME}:${CI_GIT_TOKEN}@${CI_REPOSITORY_URL#*@}" "HEAD:${CI_COMMIT_TAG}"
   artifacts:
     paths:
       - public/
