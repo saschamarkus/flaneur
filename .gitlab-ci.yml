@@ -29,7 +29,7 @@ pages:
     - git config user.name saschamarkus
     - git config user.email sascha.markus@gmail.com
     - git add content/ && git commit -m "new post [skip ci]"
-    - git push http://saschamarkus:${GITLAB_TOKEN}@gitlab.com/saschamarkus/flaneur.git HEAD:master
+    - git push https://saschamarkus:${GITLAB_TOKEN}@gitlab.com/saschamarkus/flaneur.git HEAD:master
   artifacts:
     paths:
       - public/
