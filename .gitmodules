@@ -4,4 +4,4 @@
         branch = der-flaneur
 [submodule "content"]
 	path = content
-	url = https://gitlab.com/saschamarkus/flaneur_content.git
+	url = ../../saschamarkus/flaneur_content.git
