@@ -51,6 +51,7 @@ M_LINKS_FOOTER1 = [('Der Flaneur', '/'),
 STATIC_PATHS = [
                 'images',
                 'extra',
+                '.well-known',
                 ]
 
 EXTRA_PATH_METADATA = {
