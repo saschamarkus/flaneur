@@ -26,6 +26,10 @@ pages:
     - pip install -r requirements.txt
     - python selenium_flaneur.py
     - pelican -s publishconf.py
+    - mkdir public/.well-known
+    - mkdir public/.well-known/acme-challenge
+    - mv .well-known/acme-challenge/y1slInS6gIoEMxykdQxsNh6rrQsM5QEGQtdCtZXeuF4 public/.well-known/acme-challenge/
+
     # add the generated content to flanuer_content repo
     - git add content/ && git commit -m "new post [skip ci]"   || true
     - git push "https://saschamarkus:${GITLAB_KEY}@${CI_REPOSITORY_URL#*@}" "HEAD:master"  || true
