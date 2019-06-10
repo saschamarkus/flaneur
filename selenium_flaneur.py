@@ -112,6 +112,7 @@ def update_exif(img_path, file_date):
 
 def build_content(bs_html, file_date):
     # Build Post
+    category = 'Ausgehen'
     lines = list()
     leading_blanks = re.compile('^ *')
     for para in bs_html.find('body').contents:
@@ -122,10 +123,12 @@ def build_content(bs_html, file_date):
                 lines.append(leading_blanks.sub('', str(con).replace('{breakline}', '<br/>')))
                 if not lines[-1].startswith('***'):
                     lines[-1] = lines[-1].replace('*', '\\*')
+                if '#unterwegs' in line:
+                    category = 'Unterwegs'
         lines.append('\n\n')
     rst_image = "![{}]({{static}}images/{}.jpg)".format(lines[0], file_date)
     lines = [rst_image, '\n', '\n'] + lines
-    return lines
+    return lines, category
 
 
 def get_dates(post_date, post_time):
@@ -137,19 +140,19 @@ def get_dates(post_date, post_time):
     date_str = f'{post_date} {post_time}'
     dt = datetime.datetime.fromisoformat(date_str)
 
-    fb_date = format_datetime(dt, 'EEEE, dd.MM.yyyy H:mm', locale='de_DE')
+    fb_date = format_datetime(dt, 'dd.MM.yyyy H:mm', locale='de_DE')
     rst_date = format_datetime(dt, 'yyyy-MM-dd H:mm', locale='de_DE')
     file_date = format_datetime(dt, 'yyyy-MM-dd-H-mm', locale='de_DE')
     return rst_date, file_date, fb_date
 
 
-def build_prefix(fb_date, rst_date):
+def build_prefix(fb_date, rst_date, category):
     prefix = """Title: Beitrag vom {}
 Date: {}
-Category: Ausgehen
+Category: {}
 
 
-""".format(fb_date, rst_date)
+""".format(fb_date, rst_date, category)
     return(prefix)
 
 
@@ -159,16 +162,16 @@ driver = launch_browser()
 post_id, post_date, post_time = get_latest_post()
 bs_html = get_post(post_id)
 
-rst_date, file_date, fb_date = get_dates(post_date, post_time)
-
-prefix = build_prefix(fb_date, rst_date)
-
 img_path = download_image(driver, file_date)
 resize_image(img_path)
 update_exif(img_path, file_date)
 
 build_links(bs_html)
-content = build_content(bs_html, file_date)
+content, category = build_content(bs_html, file_date)
+
+rst_date, file_date, fb_date = get_dates(post_date, post_time)
+
+prefix = build_prefix(fb_date, rst_date, category)
 
 out_fname = content_path + 'post_' + file_date + '.md'
 with open(out_fname, 'w') as ofile:
