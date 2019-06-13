@@ -160,7 +160,7 @@ content_path = 'content/'
 driver = launch_browser()
 
 post_id, post_date, post_time = get_latest_post()
-bs_html = get_post(post_id)
+bs_html = get_post(post_id)rst_date, file_date, fb_date = get_dates(post_date, post_time)
 
 img_path = download_image(driver, file_date)
 resize_image(img_path)
