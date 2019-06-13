@@ -123,8 +123,8 @@ def build_content(bs_html, file_date):
                 lines.append(leading_blanks.sub('', str(con).replace('{breakline}', '<br/>')))
                 if not lines[-1].startswith('***'):
                     lines[-1] = lines[-1].replace('*', '\\*')
-                if '#unterwegs' in line:
-                    category = 'Unterwegs'
+            #if '#unterwegs' in line:
+        #        category = 'Unterwegs'
         lines.append('\n\n')
     rst_image = "![{}]({{static}}images/{}.jpg)".format(lines[0], file_date)
     lines = [rst_image, '\n', '\n'] + lines
