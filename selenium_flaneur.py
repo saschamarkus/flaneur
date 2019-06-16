@@ -38,9 +38,8 @@ def get_latest_post():
     p = ''
     with open('posts.txt') as posts:
         for line in posts:
-            p = line.replace('\n', '')
-            if not p:
-                break
+            if line.replace('\n', ''):
+                p = line.replace('\n', '')
     post_id, post_date, post_time = p.split(' ')
     return post_id, post_date, post_time
 
