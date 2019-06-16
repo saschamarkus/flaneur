@@ -123,8 +123,8 @@ def build_content(bs_html, file_date):
                 lines.append(leading_blanks.sub('', str(con).replace('{breakline}', '<br/>')))
                 if not lines[-1].startswith('***'):
                     lines[-1] = lines[-1].replace('*', '\\*')
-                if '#unterwegs' in line:
-                    category = 'Unterwegs'
+            if '#unterwegs' in con:
+                category = 'Unterwegs'
         lines.append('\n\n')
     rst_image = "![{}]({{static}}images/{}.jpg)".format(lines[0], file_date)
     lines = [rst_image, '\n', '\n'] + lines
@@ -161,6 +161,7 @@ driver = launch_browser()
 
 post_id, post_date, post_time = get_latest_post()
 bs_html = get_post(post_id)
+rst_date, file_date, fb_date = get_dates(post_date, post_time)
 
 img_path = download_image(driver, file_date)
 resize_image(img_path)
@@ -168,8 +169,6 @@ update_exif(img_path, file_date)
 
 build_links(bs_html)
 content, category = build_content(bs_html, file_date)
-
-rst_date, file_date, fb_date = get_dates(post_date, post_time)
 
 prefix = build_prefix(fb_date, rst_date, category)
 
