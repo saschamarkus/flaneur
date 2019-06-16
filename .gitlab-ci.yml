@@ -31,10 +31,11 @@ pages:
     - mkdir public/.well-known/acme-challenge
     - cp -r .well-known/acme-challenge/* public/.well-known/acme-challenge/
 
-    # add the generated content to flanuer_content repo
-    #- git add content/ && git commit -m "new post [skip ci]"   || true
-    #- git push "https://saschamarkus:${GITLAB_KEY}@${CI_REPOSITORY_URL#*@}" "HEAD:master"  || true
   artifacts:
     paths:
       - public/
+  after_script:
+    # add the generated content to flanuer_content repo
+    - git add content/ && git commit -m "new post [skip ci]"   || true
+    - git push "https://saschamarkus:${GITLAB_KEY}@${CI_REPOSITORY_URL#*@}" "HEAD:master"  || true
 
