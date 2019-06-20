@@ -21,18 +21,19 @@ pages:
 
     # set display port to avoid crash
     - export DISPLAY=:99
-  script:
-    - apt-get -qq update
+    # generate page
     - pip install -r requirements.txt
     - python selenium_flaneur.py
+    # add the generated content to flanuer_content repo
+    - git add content/ && git commit -m "new post [skip ci]"   || true
+    - git push "https://saschamarkus:${GITLAB_KEY}@${CI_REPOSITORY_URL#*@}" "HEAD:master"  || true
+  script:
+    - apt-get -qq update
     - pelican -s publishconf.py
     # copy certificate
     - mkdir public/.well-known
     - mkdir public/.well-known/acme-challenge
     - cp -r .well-known/acme-challenge/* public/.well-known/acme-challenge/
-    # add the generated content to flanuer_content repo
-    #- git add content/ && git commit -m "new post [skip ci]"   || true
-    #- git push "https://saschamarkus:${GITLAB_KEY}@${CI_REPOSITORY_URL#*@}" "HEAD:master"  || true
   artifacts:
     paths:
       - public/
