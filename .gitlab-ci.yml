@@ -9,21 +9,21 @@ pages:
     - git config user.email sascha.markus@gmail.com
     # Using chrom headless integration from https://github.com/joyzoursky/docker-python-chromedriver
     # install google chrome
-    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
-    - sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-    - apt-get -y update
-    - apt-get install -y google-chrome-stable
-
-    # install chromedriver
-    - apt-get install -yqq unzip
-    - wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE`/chromedriver_linux64.zip
-    - unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
-
-    # set display port to avoid crash
-    - export DISPLAY=:99
-    # generate page
-    - pip install -r requirements.txt
-    - python selenium_flaneur.py
+    #    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+    #    - sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+    #    - apt-get -y update
+    #    - apt-get install -y google-chrome-stable
+    #
+    #    # install chromedriver
+    #    - apt-get install -yqq unzip
+    #    - wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE`/chromedriver_linux64.zip
+    #    - unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
+    #
+    #    # set display port to avoid crash
+    #    - export DISPLAY=:99
+    #    # generate page
+    #    - pip install -r requirements.txt
+    #    - python selenium_flaneur.py
     
 
     # add the generated content to flanuer_content repo
