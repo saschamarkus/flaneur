@@ -20,13 +20,12 @@ from selenium.webdriver.chrome.options import Options
 
 
 def get_event_description(event_id):
-    print(f'https://www.facebook.com/events/{event_id}/')
     driver.get(f'https://www.facebook.com/events/{event_id}/')
     try:
         data = driver.find_element_by_xpath("//div[@data-testid='event-permalink-details']")
         return {'description': data.text}
     except Exception as e:
-        print('Error reading details for ', event_id, e)
+        print(f'Error reading details for https://www.facebook.com/events/{event_id}/', e)
     return dict()
 
 
