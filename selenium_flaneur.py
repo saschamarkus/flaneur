@@ -117,6 +117,10 @@ def update_exif(img_path, file_date):
 
 def build_content(bs_html, file_date):
     # Build Post
+    to_site = "Euren Freunden, die nicht bei Facebook sind, könnt Ihr übrigens diesen Link schicken: " 
+    site_url = "[https://www.der-flaneur.rocks/](https://www.der-flaneur.rocks/) " 
+    to_fb = "Diesen Post findet Ihr auch bei Facebook unter: "
+    fb_url = "[https://www.facebook.com/FlaneurSaarbruecken](https://www.facebook.com/FlaneurSaarbruecken) " 
     category = 'Ausgehen'
     lines = list()
     leading_blanks = re.compile('^ *')
@@ -128,6 +132,10 @@ def build_content(bs_html, file_date):
                 lines.append(leading_blanks.sub('', str(con).replace('{breakline}', '<br/>')))
                 if not lines[-1].startswith('***'):
                     lines[-1] = lines[-1].replace('*', '\\*')
+            print(len(lines), f"*{lines[-1]}*")
+            if len(lines) > 2 and lines[-2] == to_site:
+                lines[-2] = to_fb
+                lines[-1] = fb_url
             if '#unterwegs' in con:
                 category = 'Unterwegs'
         lines.append('\n\n')
