@@ -130,7 +130,7 @@ def build_content(bs_html, file_date):
             if con.name == 'br':
                 lines.append('\n\n')
             else:
-                if cons.startswith("- - - 8< -"):
+                if str(con).startswith("- - - 8< -"):
                     done = True
                     break
                 lines.append(leading_blanks.sub('', str(con).replace('{breakline}', '<br/>')))
