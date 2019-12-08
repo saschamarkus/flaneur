@@ -130,13 +130,15 @@ def build_content(bs_html, file_date):
             if con.name == 'br':
                 lines.append('\n\n')
             else:
-                if str(con).startswith("- - - 8< -"):
+                if "- - - 8< -" in str(con):
+                    print("Found catcontent")
                     done = True
                     break
-                lines.append(leading_blanks.sub('', str(con).replace('{breakline}', '<br/>')))
-                if not lines[-1].startswith('***'):
-                    lines[-1] = lines[-1].replace('*', '\\*')
-            print(len(lines), f"*{lines[-1]}*")
+                else:
+                    lines.append(leading_blanks.sub('', str(con).replace('{breakline}', '<br/>')))
+                    if not lines[-1].startswith('***'):
+                        lines[-1] = lines[-1].replace('*', '\\*')
+                print(len(lines), f"*{lines[-1]}*")
             if len(lines) > 2 and lines[-2] == to_site:
                 lines[-2] = to_fb
                 lines[-1] = fb_url
