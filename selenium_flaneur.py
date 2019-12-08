@@ -124,13 +124,15 @@ def build_content(bs_html, file_date):
     category = 'Ausgehen'
     lines = list()
     leading_blanks = re.compile('^ *')
+    done = False
     for para in bs_html.find('body').contents:
-        if para.contents and para.contents[0].startswith("- - - 8< -"):
-            break
         for con in para.contents:
             if con.name == 'br':
                 lines.append('\n\n')
             else:
+                if cons.startswith("- - - 8< -"):
+                    done = True
+                    break
                 lines.append(leading_blanks.sub('', str(con).replace('{breakline}', '<br/>')))
                 if not lines[-1].startswith('***'):
                     lines[-1] = lines[-1].replace('*', '\\*')
@@ -141,6 +143,8 @@ def build_content(bs_html, file_date):
             if '#unterwegs' in con:
                 category = 'Unterwegs'
         lines.append('\n\n')
+        if done:
+            break
     rst_image = "![{}]({{static}}images/{}.jpg)".format(lines[0], file_date)
     lines = [rst_image, '\n', '\n'] + lines
     return lines, category
