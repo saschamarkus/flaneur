@@ -125,6 +125,8 @@ def build_content(bs_html, file_date):
     lines = list()
     leading_blanks = re.compile('^ *')
     for para in bs_html.find('body').contents:
+        if para.contents and para.contents[0].startswith("- - - 8< -"):
+            break
         for con in para.contents:
             if con.name == 'br':
                 lines.append('\n\n')
