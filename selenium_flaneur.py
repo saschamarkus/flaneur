@@ -19,10 +19,10 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.options import Options
 
 
-def get_event_description(event_id):
+def get_event_description(driver, event_id):
     driver.get(f'https://www.facebook.com/events/{event_id}/')
     try:
-        data = driver.find_element_by_xpath("//div[@data-testid='event-permalink-details']")
+        data = driver.find_element_by_class_name("_63ew")
         return {'description': data.text}
     except Exception as e:
         print(f'Error reading details for https://www.facebook.com/events/{event_id}/', e)
@@ -48,7 +48,7 @@ def get_latest_post():
     return post_id, post_date, post_time
 
 
-def get_post(post_id):
+def get_post(driver, post_id):
     driver.get('https://www.facebook.com/FlaneurSaarbruecken/{}/?type=3&theater'.format(post_id))
     xpath_content = "//div[@class='_5pbx userContent _3576']"
     content = driver.find_element_by_xpath(xpath_content)
@@ -56,7 +56,7 @@ def get_post(post_id):
     return bs_html
 
 
-def build_links(bs_html):
+def build_links(driver, bs_html):
     from_questionmark = re.compile('\?.*')
     fbclid = re.compile('[\&|\?]fbclid=.*')
     for link in bs_html.find_all('a'):
@@ -75,7 +75,7 @@ def build_links(bs_html):
         event_details = ''
         if 'facebook.com/events/' in link['href']:
             event_id = link['href'].split('/')[-2]
-            event = get_event_description(event_id)
+            event = get_event_description(driver, event_id)
             if event.get('description', None):
                 event_details = '<label for="item-{}">&nbsp;</label><input type="checkbox" name="one" id="item-{}"><span class="hide">Beschreibung der Veranstalter*innen: <i>{}</i></span>'.format(event_id, event_id, event.get('description').replace('\n', '{breakline}'))
         # build link
@@ -177,24 +177,25 @@ Category: {}
     return(prefix)
 
 
-content_path = 'content/'
-driver = launch_browser()
+if __name__ == "__main__":
+    content_path = 'content/'
+    driver = launch_browser()
 
-post_id, post_date, post_time = get_latest_post()
-bs_html = get_post(post_id)
-rst_date, file_date, fb_date = get_dates(post_date, post_time)
+    post_id, post_date, post_time = get_latest_post()
+    bs_html = get_post(driver, post_id)
+    rst_date, file_date, fb_date = get_dates(post_date, post_time)
 
-img_path = download_image(driver, file_date)
-resize_image(img_path)
-update_exif(img_path, file_date)
+    img_path = download_image(driver, file_date)
+    resize_image(img_path)
+    update_exif(img_path, file_date)
 
-build_links(bs_html)
-content, category = build_content(bs_html, file_date)
+    build_links(driver, bs_html)
+    content, category = build_content(bs_html, file_date)
 
-prefix = build_prefix(fb_date, rst_date, category)
+    prefix = build_prefix(fb_date, rst_date, category)
 
-out_fname = content_path + 'post_' + file_date + '.md'
-with open(out_fname, 'w') as ofile:
-    print('writing', out_fname)
-    ofile.write(prefix)
-    ofile.write(''.join(content))
+    out_fname = content_path + 'post_' + file_date + '.md'
+    with open(out_fname, 'w') as ofile:
+        print('writing', out_fname)
+        ofile.write(prefix)
+        ofile.write(''.join(content))
