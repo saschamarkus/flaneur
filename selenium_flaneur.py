@@ -168,7 +168,7 @@ def get_dates(post_date, post_time):
 
 
 def build_prefix(fb_date, rst_date, category):
-    prefix = """Title: Beitrag vom {}
+    prefix = """Title: Veranstaltungen {}
 Date: {}
 Category: {}
 
