@@ -20,74 +20,78 @@ from selenium.webdriver.chrome.options import Options
 
 
 def get_event_description(driver, event_id):
-    driver.get(f'https://www.facebook.com/events/{event_id}/')
+    driver.get(f"https://www.facebook.com/events/{event_id}/")
     try:
         data = driver.find_element_by_class_name("_63ew")
-        return {'description': data.text}
+        return {"description": data.text}
     except Exception as e:
-        print(f'Error reading details for https://www.facebook.com/events/{event_id}/', e)
+        print(f"Error reading details for https://www.facebook.com/events/{event_id}/", e)
     return dict()
 
 
 def launch_browser():
     options = Options()
     options.add_argument("--disable-notifications")
-    options.add_argument('--headless')
-    options.add_argument('--no-sandbox')  # required when running as root user. otherwise you would get no sandbox errors.
+    options.add_argument("--headless")
+    options.add_argument(
+        "--no-sandbox"
+    )  # required when running as root user. otherwise you would get no sandbox errors.
     driver = webdriver.Chrome(options=options)
     return driver
 
 
 def get_latest_post():
-    p = ''
-    with open('posts.txt') as posts:
+    p = ""
+    with open("posts.txt") as posts:
         for line in posts:
-            if line.replace('\n', ''):
-                p = line.replace('\n', '')
-    post_id, post_date, post_time = p.split(' ')
+            if line.replace("\n", ""):
+                p = line.replace("\n", "")
+    post_id, post_date, post_time = p.split(" ")
     return post_id, post_date, post_time
 
 
 def get_post(driver, post_id):
-    driver.get('https://www.facebook.com/FlaneurSaarbruecken/{}/?type=3&theater'.format(post_id))
+    driver.get("https://www.facebook.com/FlaneurSaarbruecken/{}/?type=3&theater".format(post_id))
     xpath_content = "//div[@class='_5pbx userContent _3576']"
     content = driver.find_element_by_xpath(xpath_content)
-    bs_html = soup(content.get_attribute('innerHTML'), "html5lib")
+    bs_html = soup(content.get_attribute("innerHTML"), "html5lib")
     return bs_html
 
 
 def build_links(driver, bs_html):
-    from_questionmark = re.compile('\?.*')
-    fbclid = re.compile('[\&|\?]fbclid=.*')
-    for link in bs_html.find_all('a'):
+    from_questionmark = re.compile("\?.*")
+    fbclid = re.compile("[\&|\?]fbclid=.*")
+    for link in bs_html.find_all("a"):
         # make relative paths absolute
-        if link['href'].startswith('/'):
-            link['href'] = 'https://www.facebook.com' + link['href']
+        if link["href"].startswith("/"):
+            link["href"] = "https://www.facebook.com" + link["href"]
         # remove extra parameters
-        if link['href'].startswith('https://www.facebook.com/'):
-            link['href'] = from_questionmark.sub('', link['href'])
+        if link["href"].startswith("https://www.facebook.com/"):
+            link["href"] = from_questionmark.sub("", link["href"])
         # prepare external links
-        if link['href'].startswith('https://l.facebook.com/l.php'):
-            link['href'] = urllib.parse.parse_qs(urlparse(link['href']).query)['u'][0]
+        if link["href"].startswith("https://l.facebook.com/l.php"):
+            link["href"] = urllib.parse.parse_qs(urlparse(link["href"]).query)["u"][0]
         # remove facebook tracking
-        link['href'] = fbclid.sub('', link['href'])
+        link["href"] = fbclid.sub("", link["href"])
         event = dict()
-        event_details = ''
-        if 'facebook.com/events/' in link['href']:
-            event_id = link['href'].split('/')[-2]
+        event_details = ""
+        if "facebook.com/events/" in link["href"]:
+            event_id = link["href"].split("/")[-2]
             event = get_event_description(driver, event_id)
-            if event.get('description', None):
-                event_details = '<label for="item-{}">&nbsp;</label><input type="checkbox" name="one" id="item-{}"><span class="hide">Beschreibung der Veranstalter*innen: <i>{}</i></span>'.format(event_id, event_id, event.get('description').replace('\n', '{breakline}'))
+            if event.get("description", None):
+                event_details = '<label for="item-{}">&nbsp;</label><input type="checkbox" name="one" id="item-{}"><span class="hide">Beschreibung der Veranstalter*innen: <i>{}</i></span>'.format(
+                    event_id, event_id, event.get("description").replace("\n", "{breakline}")
+                )
         # build link
-        link.replace_with('[{}]({}){} '.format(link.text, link['href'], event_details))
+        link.replace_with("[{}]({}){} ".format(link.text, link["href"], event_details))
 
 
 def download_image(driver, file_date):
     img = driver.find_element_by_xpath('//a[@rel="theater"]//img')
 
     # Download Image
-    img_src = img.get_attribute('src')
-    img_path = content_path + 'images/' + file_date + '.jpg'
+    img_src = img.get_attribute("src")
+    img_path = content_path + "images/" + file_date + ".jpg"
     urllib.request.urlretrieve(img_src, img_path)
     return img_path
 
@@ -96,7 +100,7 @@ def resize_image(img_path):
     # Resize Image
     img = Image.open(img_path)
     x, y = img.size
-    resized = img.resize((int(x/(x/722)), int(y/(x/722))))
+    resized = img.resize((int(x / (x / 722)), int(y / (x / 722))))
     resized.save(img_path)
 
 
@@ -109,46 +113,46 @@ def update_exif(img_path, file_date):
     thumb_im.save(o, "jpeg")
     thumbnail = o.getvalue()
 
-    exif['thumbnail'] = thumbnail
-    zeroth_ifd = {piexif.ImageIFD.Artist: 'Sascha Markus', piexif.ImageIFD.Copyright: '(c) 2019 Sascha Markus'}
+    exif["thumbnail"] = thumbnail
+    zeroth_ifd = {piexif.ImageIFD.Artist: "Sascha Markus", piexif.ImageIFD.Copyright: "(c) 2019 Sascha Markus"}
     exif["0th"] = zeroth_ifd
-    piexif.insert(piexif.dump(exif), content_path + 'images/' + file_date + '.jpg')
+    piexif.insert(piexif.dump(exif), content_path + "images/" + file_date + ".jpg")
 
 
 def build_content(bs_html, file_date):
     # Build Post
-    to_site = "Euren Freunden, die nicht bei Facebook sind, könnt Ihr übrigens diesen Link schicken: " 
-    site_url = "[https://www.der-flaneur.rocks/](https://www.der-flaneur.rocks/) " 
+    to_site = "Euren Freunden, die nicht bei Facebook sind, könnt Ihr übrigens diesen Link schicken: "
+    site_url = "[https://www.der-flaneur.rocks/](https://www.der-flaneur.rocks/) "
     to_fb = "Diesen Post findet Ihr auch bei Facebook unter: "
-    fb_url = "[https://www.facebook.com/FlaneurSaarbruecken](https://www.facebook.com/FlaneurSaarbruecken) " 
-    category = 'Ausgehen'
+    fb_url = "[https://www.facebook.com/FlaneurSaarbruecken](https://www.facebook.com/FlaneurSaarbruecken) "
+    category = "Ausgehen"
     lines = list()
-    leading_blanks = re.compile('^ *')
+    leading_blanks = re.compile("^ *")
     done = False
-    for para in bs_html.find('body').contents:
+    for para in bs_html.find("body").contents:
         for con in para.contents:
-            if con.name == 'br':
-                lines.append('\n\n')
+            if con.name == "br":
+                lines.append("\n\n")
             else:
                 if "- - - 8< -" in str(con):
                     print("Found catcontent")
                     done = True
                     break
                 else:
-                    lines.append(leading_blanks.sub('', str(con).replace('{breakline}', '<br/>')))
-                    if not lines[-1].startswith('***'):
-                        lines[-1] = lines[-1].replace('*', '\\*')
+                    lines.append(leading_blanks.sub("", str(con).replace("{breakline}", "<br/>")))
+                    if not lines[-1].startswith("***"):
+                        lines[-1] = lines[-1].replace("*", "\\*")
                 print(len(lines), f"*{lines[-1]}*")
             if len(lines) > 2 and lines[-2] == to_site:
                 lines[-2] = to_fb
                 lines[-1] = fb_url
-            if '#unterwegs' in con:
-                category = 'Unterwegs'
-        lines.append('\n\n')
+            if "#unterwegs" in con:
+                category = "Unterwegs"
+        lines.append("\n\n")
         if done:
             break
     rst_image = "![{}]({{static}}images/{}.jpg)".format(lines[0], file_date)
-    lines = [rst_image, '\n', '\n'] + lines
+    lines = [rst_image, "\n", "\n"] + lines
     return lines, category
 
 
@@ -158,12 +162,12 @@ def get_dates(post_date, post_time):
     # date = driver.find_element_by_class_name('timestampContent')
     # date_utime = date.find_element_by_xpath('..').get_attribute('data-utime')
 
-    date_str = f'{post_date} {post_time}'
+    date_str = f"{post_date} {post_time}"
     dt = datetime.datetime.fromisoformat(date_str)
 
-    fb_date = format_datetime(dt, 'dd.MM.yyyy H:mm', locale='de_DE')
-    rst_date = format_datetime(dt, 'yyyy-MM-dd H:mm', locale='de_DE')
-    file_date = format_datetime(dt, 'yyyy-MM-dd-H-mm', locale='de_DE')
+    fb_date = format_datetime(dt, "dd.MM.yyyy H:mm", locale="de_DE")
+    rst_date = format_datetime(dt, "yyyy-MM-dd H:mm", locale="de_DE")
+    file_date = format_datetime(dt, "yyyy-MM-dd-H-mm", locale="de_DE")
     return rst_date, file_date, fb_date
 
 
@@ -173,12 +177,14 @@ Date: {}
 Category: {}
 
 
-""".format(fb_date, rst_date, category)
-    return(prefix)
+""".format(
+        fb_date, rst_date, category
+    )
+    return prefix
 
 
 if __name__ == "__main__":
-    content_path = 'content/'
+    content_path = "content/"
     driver = launch_browser()
 
     post_id, post_date, post_time = get_latest_post()
@@ -194,8 +200,8 @@ if __name__ == "__main__":
 
     prefix = build_prefix(fb_date, rst_date, category)
 
-    out_fname = content_path + 'post_' + file_date + '.md'
-    with open(out_fname, 'w') as ofile:
-        print('writing', out_fname)
+    out_fname = content_path + "post_" + file_date + ".md"
+    with open(out_fname, "w") as ofile:
+        print("writing", out_fname)
         ofile.write(prefix)
-        ofile.write(''.join(content))
+        ofile.write("".join(content))
