@@ -53,7 +53,7 @@ def get_latest_post():
 def get_post(driver, post_id):
     driver.get("https://www.facebook.com/FlaneurSaarbruecken/{}/?type=3&theater".format(post_id))
     # xpath_content = "//div[@class='_5pbx userContent _3576']"
-    xpath_content = '//div[@data-ad-preview="message"]'
+    xpath_content = '//div[@data-testid="post_message"]'
     content = driver.find_element_by_xpath(xpath_content)
     bs_html = soup(content.get_attribute("innerHTML"), "html5lib")
     return bs_html
