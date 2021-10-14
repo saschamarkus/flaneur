@@ -22,7 +22,7 @@ pages:
     #    # set display port to avoid crash
     #- export DISPLAY=:99
     #    # generate page
-    #- pip install -r requirements.txt
+    - pip install -r requirements.txt
     #- python selenium_flaneur.py || true
     
 
