@@ -5,7 +5,7 @@ from os import path
 
 AUTHOR = "Sascha Markus"
 SITENAME = "Der Flaneur"
-SITEURL = ""
+SITEURL = "https://saschamarkus.gitlab.io/flaneur/"
 
 PATH = "content"
 OUTPUT_PATH = "public"
