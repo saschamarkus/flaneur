@@ -7,6 +7,7 @@ url: https://saschamarkus.github.io
 
 # Build settings
 markdown: kramdown
+theme: minima
 permalink: /:year/:month/:day/:slug/
 timezone: Europe/Berlin
 
@@ -24,11 +25,32 @@ plugins:
 # Exclude files
 exclude:
   - .gitignore
+  - .gitmodules
+  - .gitlab-ci.yml
   - Gemfile
   - Gemfile.lock
   - m.css
   - venv
   - __pycache__
+  - pelicanconf.py
+  - pelicanconf.py.backup
+  - publishconf.py
+  - publishconf.py.backup
+  - requirements.txt
+  - tasks.py
+  - Makefile
+  - node_modules
+  - geckodriver.log
+  - selenium_flaneur.py
+  - package.json
+  - package-lock.json
+  - posts.txt
+  - public
+  - custom_profile
+  - aU9zXHMEPPKP_F0tUmzq6SnHcNE0MkvrT6XQm-qeJXM
+  - content
+  - .jekyll-cache
+  - .jekyll-metadata
 
 # Default front matter
 defaults:
@@ -44,5 +66,13 @@ defaults:
     values:
       layout: "page"
 
-# Language
+# Language settings
 lang: de
+
+# Feed settings
+feed:
+  path: feed.xml
+
+# Pagination (if using jekyll-paginate)
+# paginate: 10
+# paginate_path: "/page:num/"
