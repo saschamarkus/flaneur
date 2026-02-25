@@ -80,25 +80,20 @@ Dies erstellt die statische Website im Ordner `_site/`.
    ```
 
 3. Inhalt in Markdown schreiben:
-   ```markdown
-   # Überschrift
+    ```markdown
+    # Überschrift
 
-   Text mit **Fettdruck** und *Kursiv*.
+    Text mit **Fettdruck** und *Kursiv*.
 
-   ![Bildtext]({% link assets/images/bild.jpg %})
+    ![Bildtext](/assets/images/bild.jpg)
 
-   - Punkt 1
-   - Punkt 2
-   ```
+    - Punkt 1
+    - Punkt 2
+    ```
 
 ### Bilder hinzufügen
 
-Bilder sollten in `assets/images/` abgelegt werden und können mit:
-```markdown
-![Beschreibung]({% link assets/images/dateiname.jpg %})
-```
-
-oder einfach:
+Bilder sollten in `assets/images/` abgelegt werden und können einfach mit:
 ```markdown
 ![Beschreibung](/assets/images/dateiname.jpg)
 ```
