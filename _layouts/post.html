@@ -1,0 +1,17 @@
+---
+layout: default
+---
+
+<article>
+  <header>
+    <h2>{{ page.title }}</h2>
+    <p class="meta">
+      <time>{{ page.date | date: "%d.%m.%Y %H:%M" }}</time>
+      {% if page.category %}<span class="category">{{ page.category }}</span>{% endif %}
+    </p>
+  </header>
+
+  <div class="content">
+    {{ content }}
+  </div>
+</article>

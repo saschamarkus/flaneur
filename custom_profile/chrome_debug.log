@@ -1,0 +1,13 @@
+[20617:20617:0327/110246.240286:WARNING:bluez_dbus_manager.cc(248)] Floss manager not present, cannot set Floss enable/disable.
+[20652:20652:0327/110246.284548:ERROR:sandbox_linux.cc(377)] InitializeSandbox() called with multiple threads in process gpu-process.
+[20617:20617:0327/110247.304720:INFO:CONSOLE(693)] "Uncaught Error: Minified React error #419; visit https://reactjs.org/docs/error-decoder.html?invariant=419 for the full message or use the non-minified dev environment for full errors and additional helpful warnings.", source: https://static.xx.fbcdn.net/rsrc.php/v3iPQl4/yd/l/de_DE/yGKql00Q75QGlipyMNsgUzxFtRfpSKgaTAgVZ8h1tDfteAcjmfJEv35rEUo3_KqLYdiTYtrCWjG_4TIM1zHUF03B7zc9aFt9laA6TBUHRCxBN1nCf0JpXZpd1.js?_nc_x=ZGAjxMYgQTT&_nc_eui2=AeHMi30H08JHw6XOSLgmoSra2epkGixD-dPZ6mQaLEP506xIuZIv48FaTLzfkNoAmsc (693)
+[20617:20617:0327/110251.452382:INFO:CONSOLE(219)] "
+%cStopp! font-family:helvetica; font-size:20px; font-size:50px; font-weight:bold; color:red; -webkit-text-stroke:1px black;", source: https://static.xx.fbcdn.net/rsrc.php/v3/yy/r/RBDtK0mS3Z8.js?_nc_x=ZGAjxMYgQTT&_nc_eui2=AeHSAMEBNGRW1gZ6oLAqA2fiKC7hiGudoakoLuGIa52hqQc9NMPh_fXmICMVLfn0ZmQ (219)
+[20617:20617:0327/110251.452502:INFO:CONSOLE(219)] "
+%cDies ist eine Browser-Funktion für Entwickler. Solltest du von jemandem gefragt werden, hier etwas zu kopieren und einzufügen, um eine Facebook-Funktion zu aktivieren oder ein Konto zu „hacken“, dann handelt es sich um Scam. Dadurch wird der Person Zugriff auf dein Facebook-Konto gewährt. font-family:helvetica; font-size:20px; ", source: https://static.xx.fbcdn.net/rsrc.php/v3/yy/r/RBDtK0mS3Z8.js?_nc_x=ZGAjxMYgQTT&_nc_eui2=AeHSAMEBNGRW1gZ6oLAqA2fiKC7hiGudoakoLuGIa52hqQc9NMPh_fXmICMVLfn0ZmQ (219)
+[20617:20617:0327/110251.452567:INFO:CONSOLE(219)] "
+%cWeitere Informationen findest Du unter https://www.facebook.com/selfxss. font-family:helvetica; font-size:20px; ", source: https://static.xx.fbcdn.net/rsrc.php/v3/yy/r/RBDtK0mS3Z8.js?_nc_x=ZGAjxMYgQTT&_nc_eui2=AeHSAMEBNGRW1gZ6oLAqA2fiKC7hiGudoakoLuGIa52hqQc9NMPh_fXmICMVLfn0ZmQ (219)
+[20617:20617:0327/110251.452616:INFO:CONSOLE(219)] "
+%c ", source: https://static.xx.fbcdn.net/rsrc.php/v3/yy/r/RBDtK0mS3Z8.js?_nc_x=ZGAjxMYgQTT&_nc_eui2=AeHSAMEBNGRW1gZ6oLAqA2fiKC7hiGudoakoLuGIa52hqQc9NMPh_fXmICMVLfn0ZmQ (219)
+[20653:20678:0327/110355.469636:WARNING:sqlite_persistent_store_backend_base.cc(165)] Failed to post task from FlushAndNotifyInBackground@net/extras/sqlite/sqlite_persistent_store_backend_base.cc:213 to client_task_runner_.
+[20617:20617:0327/110355.492811:WARNING:pref_notifier_impl.cc(40)] Pref observer for media_router.cast_allow_all_ips found at shutdown.

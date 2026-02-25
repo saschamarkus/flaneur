@@ -1,0 +1,48 @@
+# Jekyll configuration
+title: Der Flaneur
+description: Kulturveranstaltungen im Saarland
+author: Sascha Markus
+baseurl: /flaneur
+url: https://saschamarkus.github.io
+
+# Build settings
+markdown: kramdown
+permalink: /:year/:month/:day/:slug/
+timezone: Europe/Berlin
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /:collection/:year/:month/:day/:slug/
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Exclude files
+exclude:
+  - .gitignore
+  - Gemfile
+  - Gemfile.lock
+  - m.css
+  - venv
+  - __pycache__
+
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      category: "Ausgehen"
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+
+# Language
+lang: de
